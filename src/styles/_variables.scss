@@ -1,0 +1,85 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+$a: black;
+
+/**
+ * 미디어 쿼리: 반응형 웹 기기별 중단점 (*기준: 크롬 개발자 도구)
+ */
+// 모바일
+$bp-mobile-min: 320px;
+$bp-mobile-max: 425px;
+
+// 태블릿
+$bp-tablet-min: 426px;
+$bp-tablet-max: 768px;
+
+// 노트북
+$bp-laptop-min: 769px;
+$bp-laptop-max: 1024px;
+
+// 데스크탑
+$bp-desktop-min: 1025px;
+$bp-desktop-max: 1440px;
+
+// 대형 화면
+$bp-screen-min: 1441px;
+$bp-screen-max: 2560px;
+
+/**
+ * 그리드 레이아웃
+ */
+// App
+$g-row-header: 70px;
+$g-row-nav: 34px;
+$g-row-main: auto;
+$g-row-footer: 34px;
+$g-rows-app: $g-row-header $g-row-nav $g-row-main $g-row-footer;
+
+// Header
+$g-cols-header: auto auto auto;
+
+// Navigator
+$g-col-left-nav: auto;
+$g-col-mid-nav-mobile: $bp-mobile-min;
+$g-col-mid-nav-tablet: $bp-tablet-min;
+$g-col-mid-nav-laptop: $bp-laptop-min;
+$g-col-mid-nav-desktop: $bp-desktop-min;
+$g-col-right-nav: auto;
+
+$g-cols-nav-mobile: $g-col-left-nav $g-col-mid-nav-mobile $g-col-right-nav;
+$g-cols-nav-tablet: $g-col-left-nav $g-col-mid-nav-tablet $g-col-right-nav;
+$g-cols-nav-laptop: $g-col-left-nav $g-col-mid-nav-laptop $g-col-right-nav;
+$g-cols-nav-etc: $g-col-left-nav $g-col-mid-nav-laptop $g-col-right-nav;
+
+// Main
+$g-col-left-aside: auto;
+$g-col-section-mobile: $bp-mobile-min;
+$g-col-section-tablet: $bp-tablet-min;
+$g-col-section-laptop: $bp-laptop-min;
+$g-col-section-desktop: $bp-desktop-min;
+$g-col-right-aside: auto;
+
+$g-cols-main-mobile: $g-col-left-aside $g-col-section-mobile $g-col-right-aside;
+$g-cols-main-tablet: $g-col-left-aside $g-col-section-tablet $g-col-right-aside;
+$g-cols-main-laptop: $g-col-left-aside $g-col-section-laptop $g-col-right-aside;
+$g-cols-main-etc: $g-col-left-aside $g-col-section-laptop $g-col-right-aside;
+
+// Footer
+$g-cols-footer: auto auto auto;
+
+/**
+ * 색상
+ */
+// App
+$base-bg-clr-app: black;
+$base-clr-app: white;
+
+$bgc-d-app: black;
+$c-d-app: white;
+
+/**
+ * 글자
+ */
+$base-ft: "Poppins", sans-serif;
+
+$ft-size-logo: 2rem;

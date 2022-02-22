@@ -1,0 +1,41 @@
+/*
+ * Media Query
+ */
+@mixin mobile {
+  @media screen and (max-width: $bp-mobile-max) {
+    @content;
+  }
+}
+@mixin tablet {
+  @media screen and (min-width: $bp-tablet-min) and (max-width: $bp-tablet-max) {
+    @content;
+  }
+}
+@mixin laptop {
+  @media screen and (min-width: $bp-laptop-min) and (max-width: $bp-laptop-max) {
+    @content;
+  }
+}
+@mixin desktop {
+  @media screen and (min-width: $bp-desktop-min) and (max-width: $bp-desktop-max) {
+    @content;
+  }
+}
+@mixin screen {
+  @media screen and (min-width: $bp-screen-min) {
+    @content;
+  }
+}
+
+/**
+ * Layout
+ */
+@mixin layout-grid-rows($g-rows) {
+  display: grid;
+  grid-template-rows: $g-rows;
+}
+
+@mixin layout-grid-cols($g-cols) {
+  display: grid;
+  grid-template-columns: $g-cols;
+}
