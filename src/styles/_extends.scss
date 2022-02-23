@@ -52,11 +52,9 @@
   }
 }
 
-ul {
-  &.ul-no-space {
-    margin: 0;
-    padding: 0;
-  }
+ul.ul-no-space {
+  margin: 0;
+  padding: 0;
 
   & > li.li-no-style {
     list-style-type: none;
@@ -100,6 +98,10 @@ ul {
     align-items: center;
     justify-content: flex-start;
   }
+}
+
+.g-box {
+  display: grid;
 }
 
 // 링크

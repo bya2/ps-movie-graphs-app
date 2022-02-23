@@ -27,7 +27,10 @@
 
 - 컴포넌트(Logo, Movies, Graph, Info)
 - Props 전달 오류 해결[1]
+- 인스턴스 라이프사이클(`created`)에서 데이터 할당
 - 컴포넌트 데이터 할당 오류 해결[3]
+
+![mg-화면 캡처 2022-02-22 221255](https://user-images.githubusercontent.com/61080445/155139881-af4bf73c-0fca-454e-9646-0955ce2e7c7f.png)
 
 #### Error
 

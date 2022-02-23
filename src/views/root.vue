@@ -2,7 +2,6 @@
   <div class="bg-img inner w100 posX-center"></div>
   <aside><span></span></aside>
   <section>
-    <span>SECTION</span>
     <CompMovies :prop__movies__arr="movies__arr" />
   </section>
   <aside><span></span></aside>

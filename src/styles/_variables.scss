@@ -64,6 +64,12 @@ $g-cols-main-tablet: $g-col-left-aside $g-col-section-tablet $g-col-right-aside;
 $g-cols-main-laptop: $g-col-left-aside $g-col-section-laptop $g-col-right-aside;
 $g-cols-main-etc: $g-col-left-aside $g-col-section-laptop $g-col-right-aside;
 
+// Section
+$g-col-movie-left: 1fr;
+$g-col-movie-right: 160px;
+$g-cols-movie: $g-col-movie-left $g-col-movie-right;
+$g-gap-movie: 16px;
+
 // Footer
 $g-cols-footer: auto auto auto;
 
