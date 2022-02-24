@@ -32,6 +32,12 @@
 
 ![mg-화면 캡처 2022-02-22 221255](https://user-images.githubusercontent.com/61080445/155139881-af4bf73c-0fca-454e-9646-0955ce2e7c7f.png)
 
+#### 0223
+
+- 클라이언트 측 폴더와 서버 측 폴더 분리
+- Vue3에서 Vue2로 변경
+- 서비스 포트 변경
+
 #### Error
 
 ```
@@ -53,4 +59,12 @@ https://kr.vuejs.org/v2/guide/components-props.html
 : 컴포넌트의 data에 값을 할당할 때는 Props와 다른 방식의 타입 선언이 필요.
 : Props는 Constructor as () => Type,
 : Data는 Instance as Type,
+```
+
+```
+[4] Cannot find module '@/components/main/index.vue' or its corresponding type declarations.
+
+https://www.inflearn.com/questions/30459
+: tsconfig.json 파일이 프로젝트의 루트에 있는것이 중요한 것이 아닌, Vue 프로젝트가 vscode workspace의 루트에 있는지가 중요.
+: 프로젝트 폴더를 열어서 사용한 것인지, 프로젝트 폴더가 포함된 상위 폴더를 열어서 사용한 것인지 먼저 확인.
 ```
