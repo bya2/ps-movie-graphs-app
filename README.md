@@ -4,7 +4,7 @@
 
 ### Current Stack
 
-> - FE: HTML5, CSS3, SCSS, Javascript, Typescript, Vue, Vuex, Axios
+> - FE: HTML5, CSS3, SCSS, Javascript, Typescript, Vue2, Vuex, Google-Charts, Axios
 > - BE: NodeJS, Express, Mongoose(MongoDB)
 
 ### Device
@@ -37,6 +37,10 @@
 - 클라이언트 측 폴더와 서버 측 폴더 분리
 - Vue3에서 Vue2로 변경
 - 서비스 포트 변경
+
+![image](https://user-images.githubusercontent.com/61080445/155449709-e12659d0-8db4-47e2-b3b9-6383ef6ee5a7.png)
+
+#### 0224
 
 #### Error
 
