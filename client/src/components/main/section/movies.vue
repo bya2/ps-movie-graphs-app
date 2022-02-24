@@ -58,7 +58,7 @@ export default Vue.extend({
   data() {
     return {
       init__active__obj: Object,
-      chart_data__arr: [] as Array<Array<any>>,
+      chart_data__arr: [] as Array<Array<Date | string | number>>,
     };
   },
   mounted() {

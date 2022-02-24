@@ -22,17 +22,12 @@ export default Vue.extend({
     GChart,
   },
   props: {
-    prop__chart_data__arr: Array as () => Array<Array<string | number>>,
+    prop__chart_data__arr: Array as () => Array<Array<Date | string | number>>,
   },
   data() {
     return {
       chart_lib__obj: Object as any,
     };
-  },
-  methods: {
-    fn_handler__chart_ready__google(chart: any, google: any) {
-      this.chart_lib__obj = google;
-    },
   },
   computed: {
     chart_options__obj(): object | null {
@@ -54,6 +49,11 @@ export default Vue.extend({
     },
     chart_events__obj(): object | null {
       return null;
+    },
+  },
+  methods: {
+    fn_handler__chart_ready__google(chart: any, google: any) {
+      this.chart_lib__obj = google;
     },
   },
 });
