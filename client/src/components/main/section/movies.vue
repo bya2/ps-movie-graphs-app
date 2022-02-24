@@ -9,11 +9,7 @@
     >
       <!-- 그래프 -->
       <div class="graph-box">
-        <Chart
-          :prop__type__str="chart_type__str"
-          :prop__data__arr="chart_data__arr"
-          :prop__options__obj="chart_options__obj"
-        />
+        <LineChart :prop__chart_data__arr="chart_data__arr" />
       </div>
 
       <!-- 영화 정보 -->
@@ -49,12 +45,12 @@
 <script lang="ts">
 import Vue from "vue";
 import { ArrMovies } from "@/model/type";
-import CompChart from "@/components/reusable/chart.vue";
+import CompLineChart from "@/components/reusable/line_chart.vue";
 
 export default Vue.extend({
   name: "comp-movies",
   components: {
-    Chart: CompChart,
+    LineChart: CompLineChart,
   },
   props: {
     prop__movies__arr: Array as () => ArrMovies,
@@ -62,20 +58,7 @@ export default Vue.extend({
   data() {
     return {
       init__active__obj: Object,
-      chart_type__str: "ColumnChart",
-      chart_data__arr: [
-        ["Year", "Sales", "Expenses", "Profit"],
-        ["2014", 1000, 400, 200],
-        ["2015", 1170, 460, 250],
-        ["2016", 660, 1120, 300],
-        ["2017", 1030, 540, 350],
-      ],
-      chart_options__obj: {
-        chart: {
-          title: "Company Performance",
-          subtitle: "Sales, Expenses, and Profit: 2014-2017",
-        },
-      },
+      chart_data__arr: [] as Array<Array<any>>,
     };
   },
   mounted() {
@@ -85,6 +68,66 @@ export default Vue.extend({
       {}
     );
     this.init__active__obj = init__active__obj;
+
+    // <p>{{ movie__obj.vote_average }}</p>
+    // <p>{{ movie__obj.vote_count }}</p>
+    // <p>{{ movie__obj.popularity }}</p>
+
+    // this.chart_data__arr = movies__arr.reduce((arr, movie__obj) => {
+    //   return [...arr, ["날짜", moive__obj.popularity]];
+    // }, ["Date", "Popularity"]);
+
+    this.chart_data__arr = [
+      ["Datum", "RandomVisitorNrs"],
+      [new Date("2015-01-01"), 3898],
+      [new Date("2015-02-01"), 3187],
+      [new Date("2015-03-01"), 4598],
+      [new Date("2015-04-01"), 4830],
+      [new Date("2015-05-01"), 6401],
+      [new Date("2015-06-01"), 2944],
+      [new Date("2015-07-01"), 2485],
+      [new Date("2015-08-01"), 2696],
+      [new Date("2015-09-01"), 2766],
+      [new Date("2015-10-01"), 3670],
+      [new Date("2015-11-01"), 3617],
+      [new Date("2015-12-01"), 3863],
+      [new Date("2016-01-01"), 3750],
+      [new Date("2016-02-01"), 3758],
+      [new Date("2016-03-01"), 4367],
+      [new Date("2016-04-01"), 4038],
+      [new Date("2016-05-01"), 5333],
+      [new Date("2016-06-01"), 5604],
+      [new Date("2016-07-01"), 7371],
+      [new Date("2016-08-01"), 4002],
+      [new Date("2016-09-01"), 4692],
+      [new Date("2016-10-01"), 3887],
+      [new Date("2016-11-01"), 3028],
+      [new Date("2016-12-01"), 3533],
+      [new Date("2017-01-01"), 3877],
+      [new Date("2017-02-01"), 4178],
+      [new Date("2017-03-01"), 4507],
+      [new Date("2017-04-01"), 4540],
+      [new Date("2017-05-01"), 5254],
+      [new Date("2017-06-01"), 6531],
+      [new Date("2017-07-01"), 9099],
+      [new Date("2017-08-01"), 4000],
+      [new Date("2017-09-01"), 4106],
+      [new Date("2017-10-01"), 4002],
+      [new Date("2017-11-01"), 4418],
+      [new Date("2017-12-01"), 4931],
+      [new Date("2018-01-01"), 4650],
+      [new Date("2018-02-01"), 3750],
+      [new Date("2018-03-01"), 6069],
+      [new Date("2018-04-01"), 6704],
+      [new Date("2018-05-01"), 6028],
+      [new Date("2018-06-01"), 8078],
+      [new Date("2018-07-01"), 10903],
+      [new Date("2018-08-01"), 5888],
+      [new Date("2018-09-01"), 5519],
+      [new Date("2018-10-01"), 4555],
+      [new Date("2018-11-01"), 3998],
+      [new Date("2018-12-01"), 6998],
+    ];
   },
 });
 </script>

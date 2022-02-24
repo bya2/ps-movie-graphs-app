@@ -2,7 +2,9 @@
 
 상영중인 영화에 대한 전반적인 정보를 사용자가 편리하게 볼 수 있도록 돕는 애플리케이션.
 
-### Current Stack
+## Stack
+
+### Tech
 
 > - FE: HTML5, CSS3, SCSS, Javascript, Typescript, Vue2, Vuex, Google-Charts, Axios
 > - BE: NodeJS, Express, Mongoose(MongoDB)
@@ -42,6 +44,9 @@
 
 #### 0224
 
+-
+- 차트 추가
+
 #### Error
 
 ```
@@ -71,4 +76,12 @@ https://kr.vuejs.org/v2/guide/components-props.html
 https://www.inflearn.com/questions/30459
 : tsconfig.json 파일이 프로젝트의 루트에 있는것이 중요한 것이 아닌, Vue 프로젝트가 vscode workspace의 루트에 있는지가 중요.
 : 프로젝트 폴더를 열어서 사용한 것인지, 프로젝트 폴더가 포함된 상위 폴더를 열어서 사용한 것인지 먼저 확인.
+```
+
+```
+[5] Cannot resolve definitions for module 'xxx'
+
+https://cpdev.tistory.com/166?category=687261
+: 대부분의 라이브러리들은 Typescript에 대응하여 .d.ts 파일을 제공. 그러나 일부 라이브러리의 해당 기능을 지원하지 않으므로, 에러 발생(오래되거나, 관리가 안된 경우)
+: d.ts 파일을 생성하여 모듈 선언
 ```
