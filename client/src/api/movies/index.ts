@@ -10,19 +10,21 @@ import {
 /**
  * GET
  */
-const fn_GET__movies = (_config: any): Promise<ArrMovies> => {
-  return req_ins__server(_config).then((res) => {
+const fn_GET__movies = (_req_config__obj: any): Promise<ArrMovies> => {
+  return req_ins__server(_req_config__obj).then((res) => {
     return res.data.results;
   });
 };
 
 export const fn_GET__movies__now_playing = (): Promise<ArrMovies> => {
-  return fn_GET__movies({
+  const req_config__obj = {
     ...config__movies__now_playing,
     validateStatus(status: any): boolean {
       return status >= 200 && status <= 500;
     },
-  }).catch((err) => {
+  };
+
+  return fn_GET__movies(req_config__obj).catch((err) => {
     console.log("ERR:\nLOC:api/movies/fn_GET__movies__now_playing");
     console.error(err.message);
     if (err.response) {
@@ -34,12 +36,14 @@ export const fn_GET__movies__now_playing = (): Promise<ArrMovies> => {
 };
 
 export const fn_GET__movies__latest = (): Promise<ArrMovies> => {
-  return fn_GET__movies({
+  const req_config__obj = {
     ...config__movies__latest,
     validateStatus: function (status: any): boolean {
       return status >= 200 && status <= 500;
     },
-  }).catch((err) => {
+  };
+
+  return fn_GET__movies(req_config__obj).catch((err) => {
     console.log("ERR:\nLOC:api/movies/fn_GET__movies__latest");
     console.error(err.message);
     if (err.response) {
@@ -51,12 +55,14 @@ export const fn_GET__movies__latest = (): Promise<ArrMovies> => {
 };
 
 export const fn_GET__movies__popular = (): Promise<ArrMovies> => {
-  return fn_GET__movies({
+  const req_config__obj = {
     ...config__movies__popular,
     validateStatus: function (status: any): boolean {
       return status >= 200 && status <= 500;
     },
-  }).catch((err) => {
+  };
+
+  return fn_GET__movies(req_config__obj).catch((err) => {
     console.log("ERR:\nLOC:api/movies/fn_GET__movies__popular");
     console.error(err.message);
     if (err.response) {
@@ -68,12 +74,14 @@ export const fn_GET__movies__popular = (): Promise<ArrMovies> => {
 };
 
 export const fn_GET__movies__upcoming = (): Promise<ArrMovies> => {
-  return fn_GET__movies({
+  const req_config__obj = {
     ...config__movies__upcoming,
     validateStatus: function (status: any): boolean {
       return status >= 200 && status <= 500;
     },
-  }).catch((err) => {
+  };
+
+  return fn_GET__movies(req_config__obj).catch((err) => {
     console.log("ERR:\nLOC:api/movies/fn_GET__movies__upcoming");
     console.error(err.message);
     if (err.response) {
@@ -89,4 +97,4 @@ export const fn_GET__movies__upcoming = (): Promise<ArrMovies> => {
  */
 
 // code...
-// search...
+// search movies
