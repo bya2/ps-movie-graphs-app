@@ -9,7 +9,11 @@
     >
       <!-- 그래프 -->
       <div class="graph-box">
-        <div></div>
+        <Chart
+          :prop__type__str="chart_type__str"
+          :prop__data__arr="chart_data__arr"
+          :prop__options__obj="chart_options__obj"
+        />
       </div>
 
       <!-- 영화 정보 -->
@@ -45,15 +49,33 @@
 <script lang="ts">
 import Vue from "vue";
 import { ArrMovies } from "@/model/type";
+import CompChart from "@/components/reusable/chart.vue";
 
 export default Vue.extend({
   name: "comp-movies",
+  components: {
+    Chart: CompChart,
+  },
   props: {
     prop__movies__arr: Array as () => ArrMovies,
   },
   data() {
     return {
       init__active__obj: Object,
+      chart_type__str: "ColumnChart",
+      chart_data__arr: [
+        ["Year", "Sales", "Expenses", "Profit"],
+        ["2014", 1000, 400, 200],
+        ["2015", 1170, 460, 250],
+        ["2016", 660, 1120, 300],
+        ["2017", 1030, 540, 350],
+      ],
+      chart_options__obj: {
+        chart: {
+          title: "Company Performance",
+          subtitle: "Sales, Expenses, and Profit: 2014-2017",
+        },
+      },
     };
   },
   mounted() {
