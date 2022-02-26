@@ -61,9 +61,15 @@ exports.fn_service__movies__latest = async () => {
     .fill(0)
     .reduce((arr, num, i) => [...arr, i + 1], []);
 
+  console.log(1111);
+
   const movies__all_pages__nArr = await Promise.all(
     pages__arr.map(async (_page) => {
+      console.log(2222);
+
       const movies__arr = await fn_GET__tmdb__movies__latest(_page);
+
+      console.log(movies__arr);
       return movies__arr.reduce(
         (arr, movie__obj) => [...arr, { id: movie__obj.id }],
         []
@@ -71,10 +77,14 @@ exports.fn_service__movies__latest = async () => {
     })
   );
 
+  console.log(3333);
+
   const movies__all_pages__arr = movies__all_pages__nArr.reduce(
     (arr, movies__arr) => [...arr, ...movies__arr],
     []
   );
+
+  console.log(4444);
 
   return movies__all_pages__arr;
 };

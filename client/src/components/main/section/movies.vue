@@ -9,7 +9,7 @@
     >
       <!-- 그래프 -->
       <div class="graph-box">
-        <LineChart :prop__chart_data__arr="chart_data__arr" />
+        <LineChart :prop__chart_data__arr="chart_data__obj[movie__obj.id]" />
       </div>
 
       <!-- 영화 정보 -->
@@ -19,23 +19,41 @@
           <em :class="{ 'is-adult': movie__obj.adult }"></em>
         </div>
         <div class="detail-box">
-          <p>{{ movie__obj.title }}</p>
-          <p>{{ movie__obj.overview }}</p>
-          <ul>
-            <li
-              v-for="genre_id in movie__obj.genre_ids"
-              :key="`${movie__obj.id}${genre_id}`"
-            >
-              <span>{{ genre_id }}</span>
-            </li>
-          </ul>
+          <div class="group">
+            <div><span>제목</span></div>
+            <p class="title">{{ movie__obj.title }}</p>
+          </div>
 
-          <!-- 평점, 참여 인원, 인기도 -->
-          <p>{{ movie__obj.vote_average }}</p>
-          <p>{{ movie__obj.vote_count }}</p>
-          <p>{{ movie__obj.popularity }}</p>
+          <!-- <div class="group">
+            <div><span>개요</span></div>
+            <p class="overview">{{ movie__obj.overview }}</p>
+          </div> -->
 
-          <p>{{ movie__obj.release_date }}</p>
+          <div class="group">
+            <div><span>장르</span></div>
+            <ul class="genre-list">
+              <li
+                class="genre-elem"
+                v-for="genre in movie__obj.genres"
+                :key="`${movie__obj.id}${genre.id}`"
+              >
+                <span>{{ genre.name }}</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="group">
+            <div>평점</div>
+            <div>
+              <span>{{ movie__obj.vote_average }}</span>
+              <span>({{ movie__obj.vote_count }})</span>
+            </div>
+          </div>
+
+          <div class="group">
+            <div>인기도</div>
+            <p>{{ movie__obj.popularity }}</p>
+          </div>
         </div>
       </div>
     </li>
@@ -58,76 +76,46 @@ export default Vue.extend({
   data() {
     return {
       init__active__obj: Object,
-      chart_data__arr: [] as Array<Array<Date | string | number>>,
+      // chart_data__arr: [] as Array<Array<Date | string | number>>,
     };
   },
+  computed: {
+    chart_data__obj: function () {
+      const movies__arr: ArrMovies = this.prop__movies__arr;
+
+      const init__movie_graphs__obj = movies__arr.reduce((obj, movie__obj) => {
+        obj[movie__obj.id] = [["Date", "Popularity"]];
+        return obj;
+      }, {});
+
+      const movie_graphs__obj = movies__arr.reduce((obj, movie__obj) => {
+        const prop_graph__movie_obj__arr: Array<{
+          popularity: number;
+          occured_at: Date;
+        }> = movie__obj.graph;
+
+        const graph_dots__arr = prop_graph__movie_obj__arr.reduce(
+          (arr: any[], graph_dot__obj: any) => {
+            const occured_at__date = new Date(graph_dot__obj.occured_at);
+            const yyyy = occured_at__date.getFullYear();
+            const mm = occured_at__date.getMonth() + 1;
+            const dd = occured_at__date.getDate();
+            const yyyy_mm_dd = `${yyyy}-${mm}-${dd}`;
+            const date = new Date(yyyy_mm_dd);
+            return [...arr, [date, graph_dot__obj.popularity]];
+          },
+          []
+        );
+
+        obj[movie__obj.id] = [...obj[movie__obj.id], ...graph_dots__arr];
+        return obj;
+      }, init__movie_graphs__obj);
+
+      return movie_graphs__obj;
+    },
+  },
   mounted() {
-    const movies__arr: ArrMovies = this.prop__movies__arr;
-    const init__active__obj: any = movies__arr.reduce(
-      (obj, movie__obj) => ((obj[movie__obj.id] = false), obj),
-      {}
-    );
-    this.init__active__obj = init__active__obj;
-
-    // <p>{{ movie__obj.vote_average }}</p>
-    // <p>{{ movie__obj.vote_count }}</p>
-    // <p>{{ movie__obj.popularity }}</p>
-
-    // this.chart_data__arr = movies__arr.reduce((arr, movie__obj) => {
-    //   return [...arr, ["날짜", moive__obj.popularity]];
-    // }, ["Date", "Popularity"]);
-
-    this.chart_data__arr = [
-      ["Datum", "RandomVisitorNrs"],
-      [new Date("2015-01-01"), 3898],
-      [new Date("2015-02-01"), 3187],
-      [new Date("2015-03-01"), 4598],
-      [new Date("2015-04-01"), 4830],
-      [new Date("2015-05-01"), 6401],
-      [new Date("2015-06-01"), 2944],
-      [new Date("2015-07-01"), 2485],
-      [new Date("2015-08-01"), 2696],
-      [new Date("2015-09-01"), 2766],
-      [new Date("2015-10-01"), 3670],
-      [new Date("2015-11-01"), 3617],
-      [new Date("2015-12-01"), 3863],
-      [new Date("2016-01-01"), 3750],
-      [new Date("2016-02-01"), 3758],
-      [new Date("2016-03-01"), 4367],
-      [new Date("2016-04-01"), 4038],
-      [new Date("2016-05-01"), 5333],
-      [new Date("2016-06-01"), 5604],
-      [new Date("2016-07-01"), 7371],
-      [new Date("2016-08-01"), 4002],
-      [new Date("2016-09-01"), 4692],
-      [new Date("2016-10-01"), 3887],
-      [new Date("2016-11-01"), 3028],
-      [new Date("2016-12-01"), 3533],
-      [new Date("2017-01-01"), 3877],
-      [new Date("2017-02-01"), 4178],
-      [new Date("2017-03-01"), 4507],
-      [new Date("2017-04-01"), 4540],
-      [new Date("2017-05-01"), 5254],
-      [new Date("2017-06-01"), 6531],
-      [new Date("2017-07-01"), 9099],
-      [new Date("2017-08-01"), 4000],
-      [new Date("2017-09-01"), 4106],
-      [new Date("2017-10-01"), 4002],
-      [new Date("2017-11-01"), 4418],
-      [new Date("2017-12-01"), 4931],
-      [new Date("2018-01-01"), 4650],
-      [new Date("2018-02-01"), 3750],
-      [new Date("2018-03-01"), 6069],
-      [new Date("2018-04-01"), 6704],
-      [new Date("2018-05-01"), 6028],
-      [new Date("2018-06-01"), 8078],
-      [new Date("2018-07-01"), 10903],
-      [new Date("2018-08-01"), 5888],
-      [new Date("2018-09-01"), 5519],
-      [new Date("2018-10-01"), 4555],
-      [new Date("2018-11-01"), 3998],
-      [new Date("2018-12-01"), 6998],
-    ];
+    console.log("AA:", this.chart_data__obj);
   },
 });
 </script>
@@ -163,12 +151,72 @@ ul.list-box {
     }
 
     .info-box {
-      @include layout-grid-rows(1fr 1fr);
+      @include layout-grid-rows(220px 1fr);
       gap: 8px;
       padding: 8px;
 
       & > div {
         box-shadow: 0 0 0 2px white;
+      }
+
+      .poster-box {
+        img {
+          width: 100%;
+        }
+      }
+      .detail-box {
+        padding: 8px;
+
+        .group {
+          position: relative;
+          box-shadow: 0 0 0 1px white;
+          font-family: $base-kr-ft;
+          font-size: 0.75rem;
+
+          &:not(:last-of-type) {
+            margin-bottom: 8px;
+          }
+
+          p {
+            margin: 0;
+            padding: 0;
+          }
+
+          ul {
+            @extend .ul-no-space;
+            li {
+              @extend .li-no-style;
+              display: inline-block;
+            }
+          }
+
+          span {
+            font-size: inherit;
+          }
+
+          .title {
+            // min-height: 80px;
+            font-size: inherit;
+            line-height: 1rem;
+          }
+          .overview {
+            position: relative;
+            width: 100%;
+            height: 100px;
+            overflow: hidden;
+            // white-space: nowrap;
+            text-overflow: ellipsis;
+            font-size: inherit;
+            line-height: 1rem;
+          }
+
+          .genre-list {
+            font-size: inherit;
+            .genre-elem {
+              font-size: inherit;
+            }
+          }
+        }
       }
     }
   }

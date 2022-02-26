@@ -116,40 +116,100 @@ exports.fn_GET__tmdb__movies__now_playing = (_page = 1) => {
 exports.fn_GET__tmdb__movies__latest = (_page = 1) => {
   const config__req__obj = {
     method: "GET",
-    url: `${endpoint__tmdb__movies__latest}?${qs__tmdb__movies(_page)}`,
+    url: `${endpoint__tmdb__movies__latest}?${qs.stringify(
+      qs__tmdb__movies(_page)
+    )}`,
   };
 
-  return axios_ins__tmdb(config__req__obj).catch((err) => {
-    console.log("!ERR\nLoc: logic/api/themoviedb (GET/movie/latest)");
-    console.error(err);
-    return null;
-  });
+  return axios_ins__tmdb(config__req__obj)
+    .then((res) => {
+      if (!res) {
+        console.log("no response");
+        return [];
+      }
+
+      const { status, data } = res;
+      const cond__is_200__status = status === 200;
+
+      if (cond__is_200__status) {
+        const { page, results } = data;
+        return results;
+      } else {
+        console.log("unknown status");
+        return [];
+      }
+    })
+    .catch((err) => {
+      console.log("!ERR\nLoc: logic/api/themoviedb (GET/movie/latest)");
+      console.error(err);
+      return [];
+    });
 };
 
 exports.fn_GET__tmdb__movies__popular = (_page = 1) => {
   const config__req__obj = {
     method: "GET",
-    url: `${endpoint__tmdb__movies__popular}?${qs__tmdb__movies(_page)}`,
+    url: `${endpoint__tmdb__movies__popular}?${qs.stringify(
+      qs__tmdb__movies(_page)
+    )}`,
   };
 
-  return axios_ins__tmdb(config__req__obj).catch((err) => {
-    console.log("!ERR\nLoc: logic/api/themoviedb (GET/movie/popular)");
-    console.error(err);
-    return null;
-  });
+  return axios_ins__tmdb(config__req__obj)
+    .then((res) => {
+      if (!res) {
+        console.log("no response");
+        return [];
+      }
+
+      const { status, data } = res;
+      const cond__is_200__status = status === 200;
+
+      if (cond__is_200__status) {
+        const { page, results } = data;
+        return results;
+      } else {
+        console.log("unknown status");
+        return [];
+      }
+    })
+    .catch((err) => {
+      console.log("!ERR\nLoc: logic/api/themoviedb (GET/movie/popular)");
+      console.error(err);
+      return [];
+    });
 };
 
 exports.fn_GET__tmdb__movies__upcoming = (_page = 1) => {
   const config__req__obj = {
     method: "GET",
-    url: `${endpoint__tmdb__movies__upcoming}${qs__tmdb__movies(_page)}`,
+    url: `${endpoint__tmdb__movies__upcoming}?${qs.stringify(
+      qs__tmdb__movies(_page)
+    )}`,
   };
 
-  return axios_ins__tmdb(config__req__obj).catch((err) => {
-    console.log("!ERR\nLoc: logic/api/themoviedb (GET/movie/upcoming)");
-    console.error(err);
-    return null;
-  });
+  return axios_ins__tmdb(config__req__obj)
+    .then((res) => {
+      if (!res) {
+        console.log("no response");
+        return [];
+      }
+
+      const { status, data } = res;
+      const cond__is_200__status = status === 200;
+
+      if (cond__is_200__status) {
+        const { page, results } = data;
+        return results;
+      } else {
+        console.log("unknown status");
+        return [];
+      }
+    })
+    .catch((err) => {
+      console.log("!ERR\nLoc: logic/api/themoviedb (GET/movie/upcoming)");
+      console.error(err);
+      return [];
+    });
 };
 
 /**
