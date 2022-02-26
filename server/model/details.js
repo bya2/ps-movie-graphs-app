@@ -5,6 +5,18 @@ const model_name__str = "Detail";
 // 제외: 컬렉션, 회사, 나라, imdb_id, runtime, video,
 module.exports = (function () {
   const modelScheme = new mongoose.Schema({
+    graph: [
+      {
+        popularity: {
+          type: Number,
+          required: true,
+        },
+        occured_at: {
+          type: Date,
+          required: true,
+        },
+      },
+    ],
     adult: {
       type: Boolean,
       required: true,

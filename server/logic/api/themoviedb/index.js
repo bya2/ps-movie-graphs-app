@@ -82,11 +82,34 @@ exports.fn_GET__tmdb__movies__now_playing = (_page = 1) => {
     url: `${endpoint__tmdb__movies__now_playing}${qs__tmdb__movies(_page)}`,
   };
 
-  return axios_ins__tmdb(config__req__obj).catch((err) => {
-    console.log("!ERR\nLoc: logic/api/themoviedb (GET/movie/now_playing)");
-    console.error(err);
-    return null;
-  });
+  return axios_ins__tmdb(config__req__obj)
+    .then((res) => {
+      if (!res) {
+        console.log("no response");
+        return null;
+      }
+
+      const { status, data } = res;
+      const cond__is_200__status = status === 200;
+
+      if (cond__is_200__status) {
+        const { page, results } = data;
+
+        return {
+          code: status,
+          message: "success-GET-now-playing",
+          results: results,
+        };
+      } else {
+        console.log("unknown status");
+        return null;
+      }
+    })
+    .catch((err) => {
+      console.log("!ERR\nLoc: logic/api/themoviedb (GET/movie/now_playing)");
+      console.error(err);
+      return null;
+    });
 };
 
 exports.fn_GET__tmdb__movies__latest = (_page = 1) => {
