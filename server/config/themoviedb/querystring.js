@@ -2,6 +2,8 @@ const tmdb__api_key = process.env.TMDB__API_KEY;
 const tmdb__language = "ko-KR";
 const tmdb__region = "KR";
 
+console.log(tmdb__api_key);
+
 exports.qs__tmdb__movie = () => {
   // https://developers.themoviedb.org/3/movies/get-movie-details
   // api_key, language, append_to_response

@@ -42,7 +42,7 @@ module.exports = (function () {
       required: true,
     },
     poster_path: String, // null
-    release_data: {
+    release_date: {
       type: Date,
       required: true,
     },

@@ -18,13 +18,17 @@ const {
   qs__tmdb__trending_movies,
 } = require("../../../config/themoviedb/querystring");
 
+const qs = require("qs");
+
 /**
  * A MOVIE
  */
 exports.fn_GET__tmdb__movie__id = (_moive_id) => {
   const config__req__obj = {
     method: "GET",
-    url: `${endpoint__tmdb__movie__id(_moive_id)}${qs__tmdb__movie()}`,
+    url: `${endpoint__tmdb__movie__id(_moive_id)}?${qs.stringify(
+      qs__tmdb__movie()
+    )}`,
   };
 
   return axios_ins__tmdb(config__req__obj)
@@ -79,14 +83,16 @@ exports.fn_GET__tmdb__movie__id = (_moive_id) => {
 exports.fn_GET__tmdb__movies__now_playing = (_page = 1) => {
   const config__req__obj = {
     method: "GET",
-    url: `${endpoint__tmdb__movies__now_playing}${qs__tmdb__movies(_page)}`,
+    url: `${endpoint__tmdb__movies__now_playing}?${qs.stringify(
+      qs__tmdb__movies(_page)
+    )}`,
   };
 
   return axios_ins__tmdb(config__req__obj)
     .then((res) => {
       if (!res) {
         console.log("no response");
-        return null;
+        return [];
       }
 
       const { status, data } = res;
@@ -94,28 +100,23 @@ exports.fn_GET__tmdb__movies__now_playing = (_page = 1) => {
 
       if (cond__is_200__status) {
         const { page, results } = data;
-
-        return {
-          code: status,
-          message: "success-GET-now-playing",
-          results: results,
-        };
+        return results;
       } else {
         console.log("unknown status");
-        return null;
+        return [];
       }
     })
     .catch((err) => {
       console.log("!ERR\nLoc: logic/api/themoviedb (GET/movie/now_playing)");
       console.error(err);
-      return null;
+      return [];
     });
 };
 
 exports.fn_GET__tmdb__movies__latest = (_page = 1) => {
   const config__req__obj = {
     method: "GET",
-    url: `${endpoint__tmdb__movies__latest}${qs__tmdb__movies(_page)}`,
+    url: `${endpoint__tmdb__movies__latest}?${qs__tmdb__movies(_page)}`,
   };
 
   return axios_ins__tmdb(config__req__obj).catch((err) => {
@@ -128,7 +129,7 @@ exports.fn_GET__tmdb__movies__latest = (_page = 1) => {
 exports.fn_GET__tmdb__movies__popular = (_page = 1) => {
   const config__req__obj = {
     method: "GET",
-    url: `${endpoint__tmdb__movies__popular}${qs__tmdb__movies(_page)}`,
+    url: `${endpoint__tmdb__movies__popular}?${qs__tmdb__movies(_page)}`,
   };
 
   return axios_ins__tmdb(config__req__obj).catch((err) => {

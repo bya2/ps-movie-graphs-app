@@ -13,7 +13,7 @@ const mongoose = require("mongoose");
 dotenv.config({
   path: path.resolve(
     __dirname,
-    process.env.NODE_ENV === "production" ? ".env" : ".env.dev"
+    process.env.NODE_ENV === "production" ? ".env" : ".env"
   ),
 });
 
