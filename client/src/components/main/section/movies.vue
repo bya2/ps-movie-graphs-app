@@ -1,10 +1,19 @@
 <template>
-  <ul class="comp-movies list-box">
+  <ul
+    class="comp-movies list-box"
+    v-if="Object.values(cond_state__is_active__obj).length !== 0"
+  >
     <li
-      class="list-item"
+      :class="{
+        'list-item': true,
+        active: cond_state__is_active__obj[movie__obj.id],
+      }"
       v-for="movie__obj in prop__movies__arr"
       :key="movie__obj.id"
       :name="movie__obj.id"
+      :ref="movie__obj.id"
+      @click.prevent="(e) => fn_handle__click__movie_item(e, movie__obj.id)"
+      @blur.prevent="(e) => fn_handle__blur__movie_item(e, movie__obj.id)"
       tabindex="0"
     >
       <!-- 그래프 -->
@@ -13,27 +22,21 @@
       </div>
 
       <!-- 영화 정보 -->
-      <div class="info-box">
-        <div class="poster-box">
+      <div class="detail-box">
+        <div class="poster-area">
           <img :src="movie__obj.poster_path" alt="poster" />
-          <em :class="{ 'is-adult': movie__obj.adult }"></em>
+          <em :class="{ r19: movie__obj.adult }"></em>
         </div>
-        <div class="detail-box">
-          <div class="group">
-            <div><span>제목</span></div>
-            <p class="title">{{ movie__obj.title }}</p>
+
+        <div class="info-area">
+          <div class="group title">
+            <span class="title">{{ movie__obj.title }}</span>
           </div>
 
-          <!-- <div class="group">
-            <div><span>개요</span></div>
-            <p class="overview">{{ movie__obj.overview }}</p>
-          </div> -->
-
-          <div class="group">
-            <div><span>장르</span></div>
-            <ul class="genre-list">
+          <div class="group genre">
+            <ul class="list">
               <li
-                class="genre-elem"
+                class="elem"
                 v-for="genre in movie__obj.genres"
                 :key="`${movie__obj.id}${genre.id}`"
               >
@@ -42,17 +45,13 @@
             </ul>
           </div>
 
-          <div class="group">
-            <div>평점</div>
-            <div>
-              <span>{{ movie__obj.vote_average }}</span>
-              <span>({{ movie__obj.vote_count }})</span>
-            </div>
+          <div class="group vote">
+            <span>{{ movie__obj.vote_average }}</span>
+            <span>({{ movie__obj.vote_count }})</span>
           </div>
 
-          <div class="group">
-            <div>인기도</div>
-            <p>{{ movie__obj.popularity }}</p>
+          <div class="group popularity">
+            <span>{{ movie__obj.popularity }}</span>
           </div>
         </div>
       </div>
@@ -75,9 +74,24 @@ export default Vue.extend({
   },
   data() {
     return {
-      init__active__obj: Object,
-      // chart_data__arr: [] as Array<Array<Date | string | number>>,
+      cond_state__is_active__obj: Object,
     };
+  },
+  created() {
+    console.log("CREATE");
+    const movies__arr: ArrMovies = this.prop__movies__arr;
+    const init_state__id_of_movies__obj = movies__arr.reduce(
+      (obj, movie__obj) => ((obj[movie__obj.id] = false), obj),
+      {}
+    );
+    this.cond_state__is_active__obj = init_state__id_of_movies__obj;
+    console.log("CREATE END");
+  },
+  mounted() {
+    console.log("MOUNT");
+    const obj = this.cond_state__is_active__obj;
+    console.log(Object.values(obj));
+    console.log("MOUNT END");
   },
   computed: {
     chart_data__obj: function () {
@@ -114,8 +128,24 @@ export default Vue.extend({
       return movie_graphs__obj;
     },
   },
-  mounted() {
-    console.log("AA:", this.chart_data__obj);
+  methods: {
+    fn_handle__click__movie_item(e?: MouseEvent, movie_id__str?: string) {
+      if (!(e instanceof MouseEvent)) return;
+
+      // 영화 ID에 해당하는 키의 값을 TRUE로 변경
+      const cond_state__is_active__obj = this.cond_state__is_active__obj as any;
+      cond_state__is_active__obj[`${movie_id__str}`] = true;
+
+      // 해당 영화에 포커스
+      const ref__movie: Vue | Element = this.$refs[
+        `${movie_id__str}`
+      ] as HTMLElement;
+      if (ref__movie instanceof HTMLElement) ref__movie.focus();
+    },
+    fn_handle__blur__movie_item(e?: MouseEvent, movie_id__str?: string) {
+      const cond_state__is_active__obj = this.cond_state__is_active__obj as any;
+      cond_state__is_active__obj[`${movie_id__str}`] = false;
+    },
   },
 });
 </script>
@@ -132,88 +162,121 @@ ul.list-box {
     @extend .li-no-style;
     width: 95%;
     min-height: 320px;
-    background-color: hsla(0, 0%, 0%, 0.4);
+    background-image: linear-gradient(
+      to top,
+      hsla(0, 0%, 100%, 0.3) 10%,
+      hsla(0, 0%, 0%, 0.1)
+    );
 
     padding: 16px;
 
     &:not(:last-of-type) {
       margin-bottom: 24px;
     }
+
     &.active {
-      box-shadow: 0 0 0 2px blue;
+      box-shadow: 0 0 2px 2px hsla(214, 100%, 70%, 0.9);
+      transition-duration: 0.2s;
     }
-    & > div {
-      box-shadow: 0 0 0 2px white;
+
+    & > div:nth-of-type(1) {
+      box-shadow: 0 0 0 1px white;
+      border-radius: 4px;
+    }
+
+    & > div:nth-of-type(2) {
+      box-shadow: 0 0 2px 4px hsla(0, 0%, 0%, 0.3);
     }
 
     .graph-box {
-      // canvas?
+      position: relative;
+      background-color: white;
+      @extend .f-box;
+      @extend .f-r-CC;
     }
 
-    .info-box {
-      @include layout-grid-rows(220px 1fr);
-      gap: 8px;
-      padding: 8px;
-
-      & > div {
-        box-shadow: 0 0 0 2px white;
-      }
-
-      .poster-box {
+    .detail-box {
+      @include layout-grid-rows(auto 1fr);
+      background: linear-gradient(
+        135deg,
+        hsla(0, 0%, 0%, 0.3) 10%,
+        hsla(0, 0%, 100%, 0.3) 70%,
+        hsla(0, 0%, 0%, 0.3)
+      );
+      // color: black;
+      .poster-area {
+        position: relative;
         img {
           width: 100%;
         }
+        em.r19 {
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: 50px;
+          height: 50px;
+          background-color: red;
+          border-radius: 50%;
+        }
       }
-      .detail-box {
-        padding: 8px;
+      .info-area {
+        position: relative;
+        padding: 5px 0;
 
         .group {
+          // GROUP
           position: relative;
-          box-shadow: 0 0 0 1px white;
           font-family: $base-kr-ft;
           font-size: 0.75rem;
-
+          overflow: hidden;
+          text-overflow: ellipsis;
+          @extend .f-box;
+          @extend .f-r-CC;
           &:not(:last-of-type) {
-            margin-bottom: 8px;
+            margin-bottom: 4px;
           }
 
-          p {
-            margin: 0;
-            padding: 0;
+          // INNER TEXT
+          span {
+            position: relative;
+            font-family: inherit;
+            font-size: inherit;
+            line-height: 1rem;
           }
 
-          ul {
-            @extend .ul-no-space;
-            li {
-              @extend .li-no-style;
-              display: inline-block;
+          // TITLE
+          &.title {
+            height: 1.25rem;
+            font-size: 1em;
+            line-height: 1.25rem;
+            white-space: nowrap;
+            font-weight: 700;
+
+            & > span {
+              width: 100%;
+              max-width: 160px;
+              display: block;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              text-align: center;
+              // @extend .no-pointer;
             }
           }
 
-          span {
-            font-size: inherit;
-          }
-
-          .title {
-            // min-height: 80px;
-            font-size: inherit;
-            line-height: 1rem;
-          }
-          .overview {
-            position: relative;
-            width: 100%;
-            height: 100px;
-            overflow: hidden;
-            // white-space: nowrap;
-            text-overflow: ellipsis;
-            font-size: inherit;
-            line-height: 1rem;
-          }
-
-          .genre-list {
-            font-size: inherit;
-            .genre-elem {
-              font-size: inherit;
+          // GENRE
+          &.genre {
+            @extend .f-box;
+            @extend .f-r-CC;
+            .list {
+              position: relative;
+              @extend .ul-no-space;
+              display: inline-block;
+              .elem {
+                @extend .li-no-style;
+                display: inline-block;
+                padding-right: 3px;
+                font-size: 0.75em;
+              }
             }
           }
         }

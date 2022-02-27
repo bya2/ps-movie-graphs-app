@@ -12,10 +12,7 @@ const routes: Array<RouteConfig> = [
   {
     path: "/latest",
     name: "route-latest",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import("@/views/lastest.vue"),
+    component: () => import("@/views/latest.vue"),
   },
   {
     path: "/upcoming",
@@ -26,6 +23,11 @@ const routes: Array<RouteConfig> = [
     path: "/popular",
     name: "route-popular",
     component: () => import("@/views/popular.vue"),
+  },
+  {
+    path: "/top_rated",
+    name: "route-top-rated",
+    component: () => import("@/views/top_rated.vue"),
   },
 ];
 

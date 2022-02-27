@@ -4,6 +4,7 @@ import {
   endpoint__movies__latest,
   endpoint__movies__upcoming,
   endpoint__movies__popular,
+  endpoint__movies__top_rated,
 } from "@/config/request/movies/endpoint";
 
 export const config__movies__now_playing: RequestBaseConfig_Obj = {
@@ -24,4 +25,9 @@ export const config__movies__upcoming: RequestBaseConfig_Obj = {
 export const config__movies__popular: RequestBaseConfig_Obj = {
   method: "GET",
   url: endpoint__movies__popular,
+};
+
+export const config__movies__top_rated: RequestBaseConfig_Obj = {
+  method: "GET",
+  url: endpoint__movies__top_rated,
 };

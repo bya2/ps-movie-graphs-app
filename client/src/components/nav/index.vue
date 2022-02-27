@@ -26,11 +26,6 @@ export default Vue.extend({
           value: "현재 상영",
         },
         {
-          alt: "latest",
-          route: "/latest",
-          value: "최신 영화",
-        },
-        {
           alt: "upcoming",
           route: "/upcoming",
           value: "개봉 예정",
@@ -39,6 +34,11 @@ export default Vue.extend({
           alt: "popular",
           route: "/popular",
           value: "인기 영화",
+        },
+        {
+          alt: "top_rated",
+          route: "/top_rated",
+          value: "전체 랭킹",
         },
       ],
     };

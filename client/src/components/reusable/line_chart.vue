@@ -1,6 +1,6 @@
 <template>
   <GChart
-    class="comp-line-chart line-chart"
+    class="comp-line-chart chart-box"
     :settings="{ packages: ['line'] }"
     type="LineChart"
     :data="prop__chart_data__arr"
@@ -35,7 +35,8 @@ export default Vue.extend({
       else {
         return this.chart_lib__obj.charts.Line.convertOptions({
           vAxis: { format: "" },
-          height: 280,
+          // width: "100%",
+          height: "300",
           colors: ["#d95f02"],
           legend: { position: "none" },
           trendlines: {
@@ -59,4 +60,14 @@ export default Vue.extend({
 });
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.comp-line-chart {
+  &.chart-box {
+    width: 95%;
+    height: 95%;
+    @extend .f-box;
+    @extend .f-r-CE;
+    overflow: hidden;
+  }
+}
+</style>

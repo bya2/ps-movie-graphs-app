@@ -31,6 +31,7 @@ main {
 
     max-width: 1025px;
     height: 100%;
+    max-height: 1025px;
     background-color: gray;
     background-image: linear-gradient(
         to top,
