@@ -4,6 +4,7 @@ const {
   fn_service__movies__latest,
   fn_service__movies__popular,
   fn_service__movies__upcoming,
+  fn_service__movies__top_rated,
 } = require("../../service/movies");
 const { fn_service__movie__detail } = require("../../service/movie");
 
@@ -50,6 +51,24 @@ router.get("/popular", async (req, res) => {
   console.log("Receive: api/movies/popular");
 
   const movies__all_pages__arr = await fn_service__movies__popular();
+
+  const movie_details__arr = await Promise.all(
+    movies__all_pages__arr.map(async (movie__obj) => {
+      const movie_id = movie__obj.id;
+      const movie_detail__obj = await fn_service__movie__detail(movie_id);
+      return movie_detail__obj;
+    })
+  ).catch((err) => console.error(err));
+
+  res.json({
+    results: movie_details__arr,
+  });
+});
+
+router.get("/top_rated", async (req, res) => {
+  console.log("Receive: api/movies/top_rated");
+
+  const movies__all_pages__arr = await fn_service__movies__top_rated();
 
   const movie_details__arr = await Promise.all(
     movies__all_pages__arr.map(async (movie__obj) => {

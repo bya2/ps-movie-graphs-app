@@ -1,8 +1,10 @@
 // GET /movie/latest
 const endpoint__tmdb__movies__now_playing = "/movie/now_playing";
 const endpoint__tmdb__movies__upcoming = "/movie/upcoming";
-const endpoint__tmdb__movies__latest = "/movie/latest";
 const endpoint__tmdb__movies__popular = "/movie/popular";
+const endpoint__tmdb__movies__top_rated = "/movie/top_rated";
+
+const endpoint__tmdb__movies__latest = "/movie/latest";
 
 // GET /movie/{movie_id}
 const endpoint__tmdb__movie__id = (_movie_id) => `/movie/${_movie_id}`;
@@ -21,6 +23,7 @@ module.exports = {
   endpoint__tmdb__movies__upcoming: endpoint__tmdb__movies__upcoming,
   endpoint__tmdb__movies__latest: endpoint__tmdb__movies__latest,
   endpoint__tmdb__movies__popular: endpoint__tmdb__movies__popular,
+  endpoint__tmdb__movies__top_rated: endpoint__tmdb__movies__top_rated,
   endpoint__tmdb__movie__id: endpoint__tmdb__movie__id,
   endpoint__tmdb__movies__trending_day: endpoint__tmdb__movies__trending_day,
   endpoint__tmdb__movies__trending_week: endpoint__tmdb__movies__trending_week,

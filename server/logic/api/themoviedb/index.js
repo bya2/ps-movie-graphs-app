@@ -8,6 +8,7 @@ const {
   endpoint__tmdb__movies__latest,
   endpoint__tmdb__movies__popular,
   endpoint__tmdb__movies__upcoming,
+  endpoint__tmdb__movies__top_rated,
   endpoint__tmdb__movies__trending_day,
   endpoint__tmdb__movies__trending_week,
   endpoint__img_tmdb,
@@ -108,6 +109,39 @@ exports.fn_GET__tmdb__movies__now_playing = (_page = 1) => {
     })
     .catch((err) => {
       console.log("!ERR\nLoc: logic/api/themoviedb (GET/movie/now_playing)");
+      console.error(err);
+      return [];
+    });
+};
+
+exports.fn_GET__tmdb__movies__top_rated = (_page = 1) => {
+  const config__req__obj = {
+    method: "GET",
+    url: `${endpoint__tmdb__movies__top_rated}?${qs.stringify(
+      qs__tmdb__movies(_page)
+    )}`,
+  };
+
+  return axios_ins__tmdb(config__req__obj)
+    .then((res) => {
+      if (!res) {
+        console.log("no response");
+        return [];
+      }
+
+      const { status, data } = res;
+      const cond__is_200__status = status === 200;
+
+      if (cond__is_200__status) {
+        const { page, results } = data;
+        return results;
+      } else {
+        console.log("unknown status");
+        return [];
+      }
+    })
+    .catch((err) => {
+      console.log("!ERR\nLoc: logic/api/themoviedb (GET/movie/top_rated)");
       console.error(err);
       return [];
     });
