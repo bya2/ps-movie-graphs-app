@@ -74,17 +74,19 @@ export default Vue.extend({
   },
   data() {
     return {
-      cond_state__is_active__obj: Object,
+      cond_state__is_active__obj: {},
     };
   },
   created() {
     console.log("CREATE");
     const movies__arr: ArrMovies = this.prop__movies__arr;
+    console.log("11: ", movies__arr);
     const init_state__id_of_movies__obj = movies__arr.reduce(
       (obj, movie__obj) => ((obj[movie__obj.id] = false), obj),
       {}
     );
     this.cond_state__is_active__obj = init_state__id_of_movies__obj;
+    console.log("22: ", init_state__id_of_movies__obj);
     console.log("CREATE END");
   },
   mounted() {

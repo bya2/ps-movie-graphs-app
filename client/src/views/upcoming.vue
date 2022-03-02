@@ -1,5 +1,7 @@
 <template>
-  <Movies :prop__movies__arr="movies__arr"></Movies>
+  <div v-if="movies__arr instanceof Array && movies__arr.length >= 1">
+    <Movies :prop__movies__arr="movies__arr"></Movies>
+  </div>
 </template>
 
 <script lang="ts">
